@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>South Korea Coffee Market Strategy</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --surface: rgba(255,255,255,.05);
+      --surface-strong: rgba(255,255,255,.08);
+      --line: rgba(255,255,255,.1);
+      --text: #eef4ff;
+      --muted: #a8b5d1;
+      --accent: #7c9cff;
+      --accent-2: #5eead4;
+      --accent-soft: rgba(124,156,255,.16);
+      --radius: 26px;
+      --radius-sm: 16px;
+      --max-width: 1180px;
+      --shadow: 0 26px 70px rgba(0,0,0,.28);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: radial-gradient(circle at top left, rgba(124,156,255,.18), transparent 28%),
+                  radial-gradient(circle at top right, rgba(94,234,212,.12), transparent 24%),
+                  linear-gradient(180deg, #0a0f1d 0%, #0b1020 100%);
+      line-height: 1.75;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    button {
+      font: inherit;
+      color: inherit;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .container {
+      width: min(var(--max-width), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 88px 0;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      color: var(--accent-2);
+      font-size: .78rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+
+    h1, h2, h3, p {
+      margin: 0;
+    }
+
+    h1 {
+      font-size: clamp(2.8rem, 5vw, 4.6rem);
+      line-height: 1.02;
+      letter-spacing: -.03em;
+      max-width: 12ch;
+    }
+
+    h2 {
+      font-size: clamp(1.9rem, 3vw, 3rem);
+      line-height: 1.08;
+      letter-spacing: -.03em;
+      margin-bottom: 12px;
+    }
+
+    h3 {
+      font-size: 1.05rem;
+      margin-bottom: 12px;
+      letter-spacing: -.01em;
+    }
+
+    p {
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .byline {
+      color: var(--accent-2);
+      font-size: 0.95rem;
+      margin-top: 8px;
+      margin-bottom: 0;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    .lede {
+      color: var(--muted);
+      max-width: 72ch;
+      font-size: 1.05rem;
+      margin-top: 18px;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(11,16,30,.92);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      backdrop-filter: blur(15px);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      padding: 18px 0;
+      width: min(var(--max-width), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      letter-spacing: -.02em;
+    }
+
+    .brand-mark {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 0 18px rgba(124,156,255,.6);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .nav-links a {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: .94rem;
+      transition: all .2s ease;
+      border: 1px solid transparent;
+      text-decoration: none;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus,
+    .nav-links a.active {
+      color: var(--text);
+      background: rgba(124,156,255,.12);
+      border-color: rgba(255,255,255,.12);
+    }
+
+    .nav-toggle {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero {
+      padding: 88px 0 60px;
+      min-height: calc(100vh - 98px);
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.35fr .95fr;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .hero-panel,
+    .card,
+    .quote,
+    .chart-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-panel {
+      padding: 32px;
+      min-height: 320px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(180deg, rgba(124,156,255,.14), rgba(11,16,30,.94));
+    }
+
+    .hero-kpis {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .stat {
+      padding: 22px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.05);
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -.04em;
+      margin-bottom: 6px;
+      color: #f8fbff;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: .95rem;
+      line-height: 1.5;
+    }
+
+    .grid-2,
+    .grid-3,
+    .split-banner {
+      display: grid;
+      gap: 24px;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .card,
+    .chart-card,
+    .quote {
+      padding: 26px;
+    }
+
+    .card p,
+    .card li,
+    .quote p,
+    .chart-card p {
+      color: var(--muted);
+    }
+
+    ul.clean {
+      list-style: none;
+      padding: 0;
+      margin: 14px 0 0;
+      display: grid;
+      gap: 12px;
+    }
+
+    ul.clean li {
+      position: relative;
+      padding-left: 20px;
+      line-height: 1.7;
+    }
+
+    ul.clean li::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent-2);
+      position: absolute;
+      left: 0;
+      top: .75em;
+    }
+
+    .takeaway {
+      margin-top: 20px;
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(124,156,255,.09);
+      border: 1px solid rgba(124,156,255,.18);
+      color: #d8e1ff;
+      font-size: .97rem;
+      line-height: 1.7;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.03);
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    /* Utility spacing classes */
+    .mt-md { margin-top: 22px; }
+    .mt-lg { margin-top: 32px; }
+    .mt-xl { margin-top: 36px; }
+    .gap-md { gap: 24px; }
+    .gap-lg { gap: 32px; }
+
+    .chart-wrap {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      margin-top: 18px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+    }
+
+    .chart-wrap img,
+    img.responsive {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.06);
+    }
+
+    .swatch {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      display: inline-block;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      margin-top: 26px;
+      padding-bottom: 6px;
+    }
+
+    table {
+      width: 100%;
+      min-width: 720px;
+      border-collapse: collapse;
+      background: rgba(255,255,255,.02);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    thead tr {
+      background: rgba(255,255,255,.03);
+    }
+
+    th,
+    td {
+      padding: 16px 14px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      text-align: left;
+      font-size: .95rem;
+    }
+
+    th {
+      color: #dce5ff;
+      font-weight: 700;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: rgba(255,255,255,.03);
+    }
+
+    .quote {
+      padding: 26px;
+      border-left: 4px solid var(--accent-2);
+      background: rgba(255,255,255,.02);
+    }
+
+    .quote strong {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--text);
+      font-size: 1.05rem;
+    }
+
+    .footer {
+      padding: 42px 0 60px;
+      color: var(--muted);
+      font-size: .92rem;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .65s ease, transform .65s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .chart-caption {
+      margin-top: 14px;
+      font-size: .92rem;
+      color: var(--muted);
+      line-height: 1.6;
+      padding: 0 2px;
+    }
+
+    .chart-enlargeable {
+      cursor: pointer;
+      transition: all .2s ease;
+      position: relative;
+    }
+
+    .chart-enlargeable:hover {
+      opacity: .95;
+      transform: scale(1.01);
+    }
+
+    .chart-enlargeable::after {
+      content: "Click to enlarge";
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      padding: 4px 10px;
+      background: rgba(0,0,0,.6);
+      color: #fff;
+      font-size: .75rem;
+      border-radius: 6px;
+      opacity: 0;
+      transition: opacity .2s ease;
+      pointer-events: none;
+    }
+
+    .chart-enlargeable:hover::after {
+      opacity: 1;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,.92);
+      z-index: 1000;
+      backdrop-filter: blur(4px);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .modal-image {
+      max-width: 100%;
+      max-height: 85vh;
+      width: auto;
+      height: auto;
+      display: block;
+      border-radius: 16px;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: -44px;
+      right: 0;
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 999px;
+      color: #fff;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all .2s ease;
+    }
+
+    .modal-close:hover {
+      background: rgba(255,255,255,.2);
+      border-color: rgba(255,255,255,.4);
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 3px solid rgba(124,156,255,.8);
+      outline-offset: 4px;
+    }
+
+    /* Progress indicator */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #7c9cff, #5eead4);
+      z-index: 101;
+      transition: width .1s ease;
+    }
+
+    /* Key insights section */
+    .key-insights {
+      background: linear-gradient(180deg, rgba(124,156,255,.06), rgba(94,234,212,.04));
+      border: 1px solid rgba(124,156,255,.12);
+      border-radius: 28px;
+      padding: 48px 40px;
+      margin-bottom: 60px;
+    }
+
+    .insights-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 28px;
+      margin-top: 32px;
+    }
+
+    .insight-card {
+      padding: 28px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .insight-number {
+      font-size: .85rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+
+    .insight-text {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* Chart diagnostic label */
+    .chart-diagnostic {
+      display: inline-block;
+      padding: 6px 12px;
+      background: rgba(124,156,255,.15);
+      border: 1px solid rgba(124,156,255,.25);
+      border-radius: 999px;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    /* Improved chart card styling */
+    .chart-card {
+      display: flex;
+      flex-direction: column;
+      transition: all .3s ease;
+    }
+
+    .chart-card:hover {
+      border-color: rgba(124,156,255,.2);
+      box-shadow: 0 32px 90px rgba(124,156,255,.08);
+    }
+
+    .chart-card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -.01em;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    /* Modal improvements */
+    .modal-content {
+      animation: modalSlideIn .3s ease;
+    }
+
+    @keyframes modalSlideIn {
+      from {
+        opacity: 0;
+        transform: scale(.95);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .modal-image {
+      box-shadow: 0 40px 120px rgba(0,0,0,.6);
+    }
+
+    /* Improved spacing and rhythm */
+    .section {
+      padding: 96px 0;
+    }
+
+    .section h2 {
+      margin-bottom: 18px;
+    }
+
+    /* Stronger text hierarchy */
+    .section > .container > .eyebrow {
+      margin-bottom: 22px;
+    }
+
+    /* Conclusion CTA */
+    .conclusion-cta {
+      margin-top: 36px;
+      padding: 32px;
+      background: linear-gradient(135deg, rgba(124,156,255,.12), rgba(94,234,212,.08));
+      border: 2px solid rgba(124,156,255,.2);
+      border-radius: 24px;
+      text-align: center;
+    }
+
+    .conclusion-cta p {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    /* Back to top button */
+    .back-to-top {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      width: 48px;
+      height: 48px;
+      border-radius: 999px;
+      background: rgba(124,156,255,.15);
+      border: 1px solid rgba(124,156,255,.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all .3s ease;
+      z-index: 99;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .back-to-top:hover {
+      background: rgba(124,156,255,.25);
+      border-color: rgba(124,156,255,.5);
+      transform: translateY(-4px);
+    }
+
+    /* SVG enhancements */
+    .svg-enlargeable {
+      cursor: pointer;
+      transition: all .2s ease;
+    }
+
+    .svg-enlargeable:hover {
+      filter: brightness(1.05);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition: none !important;
+        animation: none !important;
+        scroll-behavior: auto;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .grid-2,
+      .grid-3,
+      .split-banner,
+      .insights-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        width: 100%;
+        display: none;
+        flex-direction: column;
+        padding-top: 14px;
+      }
+
+      .nav.open .nav-links {
+        display: flex;
+      }
+
+      .nav-toggle {
+        display: inline-flex;
+      }
+
+      table {
+        min-width: 100%;
+      }
+
+      .back-to-top {
+        bottom: 24px;
+        right: 24px;
+        width: 44px;
+        height: 44px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        width: calc(100% - 26px);
+      }
+
+      .section {
+        padding: 60px 0;
+      }
+
+      .hero-grid {
+        gap: 22px;
+      }
+
+      .hero-panel,
+      .card,
+      .quote,
+      .chart-card,
+      .insight-card {
+        padding: 22px;
+      }
+
+      .stat-number {
+        font-size: 1.8rem;
+      }
+
+      .nav-inner {
+        align-items: flex-start;
+      }
+
+      .key-insights {
+        padding: 32px 24px;
+      }
+
+      .insights-grid {
+        gap: 18px;
+      }
+
+      .insight-card {
+        padding: 20px;
+      }
+
+      .insight-text {
+        font-size: .98rem;
+      }
+
+      .conclusion-cta {
+        padding: 24px;
+      }
+
+      .conclusion-cta p {
+        font-size: 1.1rem;
+      }
+
+      .back-to-top {
+        bottom: 16px;
+        right: 16px;
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress-bar" id="progressBar"></div>
+
+  <nav class="nav" aria-label="Primary navigation">
+    <div class="container nav-inner">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>South Korea Coffee Market Strategy</span>
+      </div>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="primary-navigation" aria-label="Toggle navigation">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16"></path>
+        </svg>
+      </button>
+      <div class="nav-links" id="primary-navigation">
+        <a href="#summary">Summary</a>
+        <a href="#context">Context</a>
+        <a href="#design">Design</a>
+        <a href="#positioning">Positioning</a>
+        <a href="#segments">Segments</a>
+        <a href="#recommendations">Recommendations</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <header class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Strategic analysis & insights</div>
+          <h1>South Korea Coffee Market</h1>
+          <p class="byline">By Minsuh Park</p>
+          <p class="lede">A data-driven view of how premium and value coffee brands compete in South Korea.</p>
+          <div class="pill-row">
+            <span class="pill">Positioning</span>
+            <span class="pill">Segmentation</span>
+            <span class="pill">Brand strategy</span>
+          </div>
+        </div>
+
+        <div class="hero-panel">
+          <div class="hero-kpis">
+            <div class="stat">
+              <div class="stat-number">7</div>
+              <div class="stat-label">Brands evaluated</div>
+            </div>
+            <div class="stat">
+              <div class="stat-number">46%</div>
+              <div class="stat-label">Premium-oriented segment</div>
+            </div>
+            <div class="stat">
+              <div class="stat-number">54%</div>
+              <div class="stat-label">Casual convenience segment</div>
+            </div>
+            <div class="stat">
+              <div class="stat-number">92.5%</div>
+              <div class="stat-label">Variance explained by positioning dimensions</div>
+            </div>
+          </div>
+          <div class="takeaway">The market is polarized: premium experience and lower-price convenience both outperform middle-ground positioning.</div>
+        </div>
+      </div>
+    </header>
+
+    <section class="section reveal">
+      <div class="container">
+        <div class="key-insights">
+          <div class="eyebrow">Key insights</div>
+          <h3 style="font-size: 1.25rem; color: var(--text); margin: 0 0 24px 0;">Three critical findings from this market analysis</h3>
+          <div class="insights-grid">
+            <div class="insight-card">
+              <div class="insight-number">01</div>
+              <div class="insight-text">Premium and value brands are better positioned than middle-market brands.</div>
+            </div>
+            <div class="insight-card">
+              <div class="insight-number">02</div>
+              <div class="insight-text">Starbucks/Twosome lead premium perception; Mega/Compose lead value perception.</div>
+            </div>
+            <div class="insight-card">
+              <div class="insight-number">03</div>
+              <div class="insight-text">Consumer demand splits into engaged premium vs casual convenience segments.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="summary" class="section reveal">
+      <div class="container">
+        <div class="eyebrow">Executive summary</div>
+        <h2>Clear positioning outperforms middle-ground strategy</h2>
+        <div class="grid-2 mt-md">
+          <div class="card">
+            <h3>The data shows</h3>
+            <ul class="clean">
+              <li>Premium brands win with taste, image, and atmosphere.</li>
+              <li>Value brands win with price, convenience, and speed.</li>
+              <li>Middle-positioned brands risk being squeezed.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Strategic implication</h3>
+            <ul class="clean">
+              <li>Choose a clear positioning lane and own it.</li>
+              <li>Experience-led and price-led plays are both viable.</li>
+              <li>Trying to appeal to both segments dilutes the message.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="context" class="section reveal">
+      <div class="container">
+        <div class="eyebrow">Market context</div>
+        <h2>South Korea coffee market shows clear premium and value clusters</h2>
+        <div class="grid-3 mt-md">
+          <div class="card">
+            <h3>Competitive intensity</h3>
+            <p>Multiple strong premium and convenience players compete for attention. Differentiation is essential to break through.</p>
+          </div>
+          <div class="card">
+            <h3>Consumer polarization</h3>
+            <p>Demand splits sharply between experience seekers and price/convenience prioritizers. No true middle market.</p>
+          </div>
+          <div class="card">
+            <h3>Opportunity</h3>
+            <p>Clearly anchored premium or value positions offer the strongest defensibility and brand equity growth.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="design" class="section reveal">
+      <div class="container">
+        <div class="eyebrow">Study design</div>
+        <h2>Quantitative positioning analysis reveals brand perception structure</h2>
+        <div class="grid-2 mt-md">
+          <div class="card">
+            <h3>Methodology</h3>
+            <ul class="clean">
+              <li>Sample: 13 respondents (exploratory scale).</li>
+              <li>Variables: 7 brands × 7 perception attributes.</li>
+              <li>Technique: PCA for dimensions + hierarchical clustering.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Output</h3>
+            <ul class="clean">
+              <li>Positioning dimensions that explain brand variance.</li>
+              <li>Consumer segments and their brand preferences.</li>
+              <li>Strategic roadmap for brand positioning choices.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="grid-2 mt-lg gap-lg">
+          <div class="chart-card">
+            <div class="chart-diagnostic">Positioning Diagnostic</div>
+            <h3>Positioning variance</h3>
+            <div class="chart-wrap">
+              <img src="positioning%20variance.png" alt="Variance explained by positioning dimensions" class="responsive chart-enlargeable" />
+            </div>
+            <div class="chart-caption">
+              <strong>How to read:</strong> The first two positioning dimensions capture most of the total variance in how consumers perceive these brands. The bars show the cumulative variance explained as dimensions are added.
+            </div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-diagnostic">Positioning Diagnostic</div>
+            <h3>Dimension loadings</h3>
+            <div class="chart-wrap">
+              <img src="positioning%20dimensions%201.png" alt="Positioning dimension loadings chart" class="responsive chart-enlargeable" />
+            </div>
+            <div class="chart-caption">
+              <strong>How to read:</strong> Attribute loadings show which variables define each axis. Attributes farther from the origin have stronger influence on their respective dimensions.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="positioning" class="section reveal">
+      <div class="container">
+        <div class="eyebrow">Positioning</div>
+        <h2>Brands cluster into premium and value groups with distinct attributes</h2>
+        
+        <div style="margin-top:32px;">
+          <div class="chart-card">
+            <div class="chart-diagnostic">Brand Perception Output</div>
+            <h3>Perceptual map</h3>
+            <div class="chart-wrap" style="padding:32px;">
+              <svg viewBox="0 0 760 520" width="100%" height="auto" style="min-height:600px;" aria-hidden="true" class="svg-enlargeable" data-enlargeable="true">
+                <rect width="760" height="520" fill="#0b1226" rx="22" />
+                <g stroke="#ffffff" opacity=".08" stroke-width="1">
+                  <line x1="80" y1="80" x2="80" y2="440" />
+                  <line x1="180" y1="80" x2="180" y2="440" />
+                  <line x1="280" y1="80" x2="280" y2="440" />
+                  <line x1="380" y1="80" x2="380" y2="440" />
+                  <line x1="480" y1="80" x2="480" y2="440" />
+                  <line x1="580" y1="80" x2="580" y2="440" />
+                  <line x1="680" y1="80" x2="680" y2="440" />
+                  <line x1="80" y1="80" x2="680" y2="80" />
+                  <line x1="80" y1="140" x2="680" y2="140" />
+                  <line x1="80" y1="200" x2="680" y2="200" />
+                  <line x1="80" y1="260" x2="680" y2="260" />
+                  <line x1="80" y1="320" x2="680" y2="320" />
+                  <line x1="80" y1="380" x2="680" y2="380" />
+                  <line x1="80" y1="440" x2="680" y2="440" />
+                </g>
+                <line x1="380" y1="80" x2="380" y2="440" stroke="#b7c4ff" stroke-opacity=".4" stroke-width="2" />
+                <line x1="80" y1="260" x2="680" y2="260" stroke="#b7c4ff" stroke-opacity=".4" stroke-width="2" />
+                <text x="688" y="252" fill="#dce5ff" font-size="13">Dimension I</text>
+                <text x="392" y="68" fill="#dce5ff" font-size="13">Dimension II</text>
+                <line x1="380" y1="260" x2="435" y2="358" stroke="#5eead4" stroke-width="2" />
+                <text x="440" y="365" fill="#5eead4" font-size="12">Price</text>
+                <line x1="380" y1="260" x2="495" y2="273" stroke="#7c9cff" stroke-width="2" />
+                <text x="500" y="280" fill="#7c9cff" font-size="12">Taste</text>
+                <line x1="380" y1="260" x2="584" y2="157" stroke="#34d399" stroke-width="2" />
+                <text x="589" y="154" fill="#34d399" font-size="12">Atmosphere</text>
+                <line x1="380" y1="260" x2="603" y2="140" stroke="#f59e0b" stroke-width="2" />
+                <text x="608" y="137" fill="#f59e0b" font-size="12">Image</text>
+                <line x1="380" y1="260" x2="486" y2="346" stroke="#fb7185" stroke-width="2" />
+                <text x="492" y="353" fill="#fb7185" font-size="12">Convenience</text>
+                <line x1="380" y1="260" x2="660" y2="258" stroke="#eab308" stroke-width="2" />
+                <text x="622" y="248" fill="#eab308" font-size="12">Variety</text>
+                <line x1="380" y1="260" x2="669" y2="269" stroke="#a78bfa" stroke-width="2" />
+                <text x="622" y="287" fill="#a78bfa" font-size="12">Consistency</text>
+                <circle cx="485" cy="190" r="8" fill="#7c9cff" />
+                <text x="497" y="194" fill="#f3f6ff" font-size="12">Starbucks</text>
+                <circle cx="224" cy="223" r="8" fill="#94a3b8" />
+                <text x="236" y="227" fill="#f3f6ff" font-size="12">Ediya</text>
+                <circle cx="437" cy="355" r="8" fill="#5eead4" />
+                <text x="449" y="359" fill="#f3f6ff" font-size="12">Mega</text>
+                <circle cx="431" cy="336" r="8" fill="#2dd4bf" />
+                <text x="443" y="340" fill="#f3f6ff" font-size="12">Compose</text>
+                <circle cx="208" cy="297" r="8" fill="#f59e0b" />
+                <text x="220" y="301" fill="#f3f6ff" font-size="12">Paik's</text>
+                <circle cx="637" cy="210" r="8" fill="#c084fc" />
+                <text x="649" y="214" fill="#f3f6ff" font-size="12">Twosome</text>
+                <circle cx="239" cy="194" r="8" fill="#fb7185" />
+                <text x="251" y="198" fill="#f3f6ff" font-size="12">Hollys</text>
+              </svg>
+            </div>
+            <div class="chart-caption">
+              <strong>How to read:</strong> Each dot represents a brand. Brands positioned closer together are perceived more similarly by consumers. Distance shows differentiation; clustering shows strategic grouping.
+            </div>
+            <div class="legend" style="margin-top:20px;">
+              <span><span class="swatch" style="background:#c084fc"></span>Premium: Twosome, Starbucks</span>
+              <span><span class="swatch" style="background:#5eead4"></span>Value: Mega, Compose</span>
+              <span><span class="swatch" style="background:#fb7185"></span>Middle: Ediya, Hollys</span>
+            </div>
+          </div>
+
+          <div class="chart-card" style="margin-top:32px;">
+            <div class="chart-diagnostic">Brand Perception Output</div>
+            <h3>Brand attribute ratings</h3>
+            <div class="chart-wrap">
+              <img src="positioning%20perceptual%20data.png" alt="Perceptual data table" class="responsive chart-enlargeable" />
+            </div>
+            <div class="chart-caption">
+              <strong>How to read:</strong> Raw perception scores for each brand across attributes (scale 0–10). Higher numbers indicate stronger perceived strength in that dimension.
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:32px;">
+            <h3>Map interpretation</h3>
+            <ul class="clean">
+              <li><strong>Premium cluster:</strong> Starbucks and Twosome near taste, image, and atmosphere.</li>
+              <li><strong>Value cluster:</strong> Mega and Compose near price and convenience.</li>
+              <li><strong>Middle risk:</strong> Ediya and Hollys are less aligned with strong differentiation.</li>
+            </ul>
+            <div class="takeaway">The strongest path is to own a clear segment rather than balance both premium and value.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="segments" class="section reveal">
+      <div class="container">
+        <div class="eyebrow">Segmentation</div>
+        <h2>Market demand splits into two distinct consumer cohorts</h2>
+        <div class="grid-2 mt-md gap-md">
+          <div class="chart-card">
+            <h3>Cluster summary</h3>
+            <div class="chart-wrap" style="padding:28px;">
+              <svg viewBox="0 0 560 300" width="100%" height="auto" style="min-height:350px;" aria-hidden="true">
+                <rect width="560" height="300" rx="18" fill="#0b1226" />
+                <circle cx="170" cy="150" r="78" fill="none" stroke="#7c9cff" stroke-width="34" stroke-dasharray="225 264" stroke-linecap="round" transform="rotate(-90 170 150)" />
+                <circle cx="170" cy="150" r="78" fill="none" stroke="#5eead4" stroke-width="34" stroke-dasharray="264 225" stroke-dashoffset="-225" stroke-linecap="round" transform="rotate(-90 170 150)" />
+                <text x="170" y="146" fill="#f3f6ff" font-size="32" font-weight="800" text-anchor="middle">13</text>
+                <text x="170" y="170" fill="#a9b4d0" font-size="14" text-anchor="middle">Respondents</text>
+                <rect x="320" y="92" width="18" height="18" rx="4" fill="#7c9cff" />
+                <text x="348" y="106" fill="#f3f6ff" font-size="15">Segment 1 — Engaged</text>
+                <text x="348" y="128" fill="#a9b4d0" font-size="14">46% · 6 respondents</text>
+                <rect x="320" y="166" width="18" height="18" rx="4" fill="#5eead4" />
+                <text x="348" y="180" fill="#f3f6ff" font-size="15">Segment 2 — Casual</text>
+                <text x="348" y="202" fill="#a9b4d0" font-size="14">54% · 7 respondents</text>
+              </svg>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Segment profiles</h3>
+            <ul class="clean">
+              <li><strong>Engaged (46%):</strong> Premium-oriented, sensitive to taste and atmosphere.</li>
+              <li><strong>Casual (54%):</strong> Price and convenience prioritized over experience.</li>
+              <li><strong>Strategic note:</strong> One size does not fit all; brands must pick their lane.</li>
+            </ul>
+            <div class="takeaway">Brands that try to serve both segments risk appealing to neither.</div>
+          </div>
+        </div>
+
+        <div class="grid-3 mt-xl gap-lg">
+          <div class="chart-card">
+            <div class="chart-diagnostic">Segmentation Diagnostic</div>
+            <h3>Scree plot</h3>
+            <div class="chart-wrap">
+              <img src="screeplot.png" alt="Scree plot showing SSE by number of clusters" class="responsive chart-enlargeable" />
+            </div>
+            <div class="chart-caption">
+              <strong>How to read:</strong> Shows sum of squared errors (SSE) as the number of clusters increases. Look for an "elbow" where SSE reduction flattens out—this suggests a natural clustering solution.
+            </div>
+          </div>
+          
+          <div class="chart-card">
+            <div class="chart-diagnostic">Segmentation Diagnostic</div>
+            <h3>Dendrogram</h3>
+            <div class="chart-wrap">
+              <img src="dendogram.png" alt="Consumer segment dendrogram" class="responsive chart-enlargeable" />
+            </div>
+            <div class="chart-caption">
+              <strong>How to read:</strong> Shows how respondents merge into clusters hierarchically. Larger vertical jumps indicate natural separation points between groups.
+            </div>
+          </div>
+
+          <div class="chart-card">
+            <div class="chart-diagnostic">Segmentation Diagnostic</div>
+            <h3>Segment space</h3>
+            <div class="chart-wrap">
+              <img src="segment%20space.png" alt="Segment space visualization" class="responsive chart-enlargeable" />
+            </div>
+            <div class="chart-caption">
+              <strong>How to read:</strong> Shows how segments and variables appear in the first two PCA dimensions. Note that only part of total variance is visible here—refer to the variance chart for the full picture.
+            </div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-diagnostic">Segmentation Diagnostic</div>
+            <h3>Segment membership</h3>
+            <div class="chart-wrap">
+              <img src="segment%20membership.png" alt="Segment membership visualization" class="responsive chart-enlargeable" />
+            </div>
+            <div class="chart-caption">
+              <strong>How to read:</strong> Shows how respondents are assigned to each segment and highlights membership patterns across the two consumer cohorts.
+            </div>
+          </div>
+        </div>
+
+        <div class="table-wrap" style="margin-top:32px;">
+          <table>
+            <thead>
+              <tr>
+                <th>Dimension</th>
+                <th>Engaged</th>
+                <th>Casual</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Age</td><td>Broad</td><td>Younger</td></tr>
+              <tr><td>Purchase frequency</td><td>High</td><td>Low</td></tr>
+              <tr><td>Brand awareness</td><td>Strong</td><td>Moderate</td></tr>
+              <tr><td>Key driver</td><td>Taste & atmosphere</td><td>Price & convenience</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="recommendations" class="section reveal">
+      <div class="container">
+        <div class="eyebrow">Recommendations</div>
+        <h2>Execute a focused strategy aligned to your target segment</h2>
+        <div class="grid-3 mt-md gap-md">
+          <div class="card">
+            <h3>If premium positioning</h3>
+            <ul class="clean">
+              <li>Invest in cafe atmosphere and taste consistency.</li>
+              <li>Command a price premium backed by experience quality.</li>
+              <li>Lead on brand story and cultural relevance.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>If value positioning</h3>
+            <ul class="clean">
+              <li>Deliver speed, price clarity, and convenience.</li>
+              <li>Maximize visibility in quick-service channels.</li>
+              <li>Communicate affordability and accessibility.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>If middle-positioned</h3>
+            <ul class="clean">
+              <li>Sharply reposition toward premium or value.</li>
+              <li>Avoid sending mixed messages about price or experience.</li>
+              <li>Validate the new strategy before full rollout.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="takeaway">Consistent execution of a clear strategy is the best competitive moat in this market.</div>
+      </div>
+    </section>
+
+    <section class="section reveal">
+      <div class="container">
+        <div class="eyebrow">Conclusion</div>
+        <h2>Clear positioning is the best defense in this market</h2>
+        <div class="grid-2 mt-md gap-md">
+          <div class="card">
+            <h3>Findings</h3>
+            <ul class="clean">
+              <li>Premium and value positions are both viable.</li>
+              <li>Middle-ground brands face the greatest risk.</li>
+              <li>Consumer segmentation supports targeted brand plays.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Next step</h3>
+            <ul class="clean">
+              <li>Validate with a larger, representative survey.</li>
+              <li>Test wording for premium versus value messaging.</li>
+              <li>Refine the brand map and cluster hypotheses with more data.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="conclusion-cta">
+          <p>Strategic implication: Choose a distinctive positioning lane and defend it with consistent execution across product, price, place, and promotion.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">Built from the presentation content and segmentation analysis assets.</div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top" title="Back to top">↑</button>
+
+  <div class="modal" id="imageModal" role="dialog" aria-hidden="true" aria-labelledby="modalImage">
+    <div class="modal-content">
+      <button class="modal-close" aria-label="Close image" id="modalCloseBtn">&times;</button>
+      <img id="modalImage" src="" alt="" class="modal-image" />
+    </div>
+  </div>
+
+  <script>
+    const nav = document.querySelector('.nav');
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const sections = document.querySelectorAll('main section[id]');
+    const revealTargets = document.querySelectorAll('.reveal');
+    const modal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+    const chartImages = document.querySelectorAll('.chart-enlargeable');
+    const svgCharts = document.querySelectorAll('svg[data-enlargeable]');
+    const progressBar = document.getElementById('progressBar');
+    const backToTop = document.getElementById('backToTop');
+
+    // ===== Progress bar tracking =====
+    window.addEventListener('scroll', () => {
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrolled = (window.scrollY / scrollHeight) * 100;
+      if (progressBar) {
+        progressBar.style.width = scrolled + '%';
+      }
+
+      // Back to top visibility
+      if (window.scrollY > 400) {
+        backToTop?.classList.add('visible');
+      } else {
+        backToTop?.classList.remove('visible');
+      }
+    });
+
+    // ===== Back to top button =====
+    backToTop?.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // ===== Navigation toggle =====
+    navToggle?.addEventListener('click', () => {
+      const isOpen = nav.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    navLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        if (nav.classList.contains('open')) {
+          nav.classList.remove('open');
+          navToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+
+    // ===== Section observer for active nav link =====
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.target.id) return;
+        const anchor = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+        if (entry.isIntersecting) {
+          navLinks.forEach((item) => item.classList.remove('active'));
+          anchor?.classList.add('active');
+        }
+      });
+    }, { threshold: 0.3, rootMargin: '0px 0px -35% 0px' });
+
+    sections.forEach((section) => sectionObserver.observe(section));
+
+    // ===== Reveal observer for scroll animations =====
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    revealTargets.forEach((target) => revealObserver.observe(target));
+
+    // ===== Modal functionality for chart images =====
+    function openModal(src, alt) {
+      modal.classList.add('active');
+      modal.setAttribute('aria-hidden', 'false');
+      modalImage.src = src;
+      modalImage.alt = alt;
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.remove('active');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    // ===== PNG chart image modal handling =====
+    chartImages.forEach((img) => {
+      img.addEventListener('click', () => {
+        openModal(img.src, img.alt);
+      });
+      img.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.code === 'Space') {
+          e.preventDefault();
+          openModal(img.src, img.alt);
+        }
+      });
+      // Make images keyboard accessible
+      img.setAttribute('tabindex', '0');
+      img.setAttribute('role', 'button');
+    });
+
+    // ===== SVG enlargeable handling =====
+    svgCharts.forEach((svg) => {
+      svg.addEventListener('click', () => {
+        // Convert SVG to image/canvas for modal display
+        const svgData = new XMLSerializer().serializeToString(svg);
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        const img = new Image();
+        const svgBlob = new Blob([svgData], { type: 'image/svg+xml' });
+        const url = URL.createObjectURL(svgBlob);
+        
+        img.onload = () => {
+          canvas.width = img.width;
+          canvas.height = img.height;
+          ctx.drawImage(img, 0, 0);
+          const pngUrl = canvas.toDataURL('image/png');
+          openModal(pngUrl, 'Perceptual map visualization');
+          URL.revokeObjectURL(url);
+        };
+        img.src = url;
+      });
+
+      svg.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.code === 'Space') {
+          e.preventDefault();
+          svg.click();
+        }
+      });
+
+      // Make SVG keyboard accessible
+      svg.setAttribute('tabindex', '0');
+      svg.setAttribute('role', 'button');
+      svg.style.cursor = 'pointer';
+    });
+
+    // ===== Modal close handlers =====
+    modalCloseBtn?.addEventListener('click', closeModal);
+
+    // Close modal on backdrop click
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    // Close modal on ESC key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeModal();
+      }
+    });
+  </script>
+</body>
+</html>
